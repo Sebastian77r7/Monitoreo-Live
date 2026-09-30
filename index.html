@@ -3,249 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RECYCLE QUEST // Monitoreo en Vivo</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<title>PIXEL RECYCLER - Arcade Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0a0a12;
-  --green:#00ff88;
-  --green-dark:#00cc6a;
-  --yellow:#ffeb3b;
-  --pink:#ff2e97;
-  --cyan:#00e5ff;
-  --panel:#151528;
-  --border:#2a2a4a;
-}
-*{box-sizing:border-box; image-rendering: pixelated;}
-body{
-    font-family:'VT323', monospace;
-    margin:0;
-    background:var(--bg);
-    color:white;
-    font-size:20px;
-    overflow-x:hidden;
-}
-body::before{
-    content:"";
-    position:fixed;
-    top:0;left:0;right:0;bottom:0;
-    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, transparent 2px, transparent 4px);
-    pointer-events:none;
-    z-index:999;
-}
-header{
-    background:var(--panel);
-    border-bottom:4px solid var(--green);
-    text-align:center;
-    padding:25px 15px;
-    box-shadow:0 0 20px rgba(0,255,136,0.3);
-    position:relative;
-}
-header h1{
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:#10102a url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+    color:#fff;
     font-family:'Press Start 2P', cursive;
-    font-size:22px;
-    color:var(--green);
-    text-shadow:0 0 10px var(--green), 3px 3px 0 #000;
-    margin:0;
-    line-height:1.4;
-}
-header p{
-    font-family:'Press Start 2P', cursive;
-    font-size:10px;
-    color:var(--cyan);
-    margin-top:15px;
-    letter-spacing:2px;
-}
-.contenedor{
-    width:92%;
-    max-width:1000px;
-    margin:20px auto;
-}
-.hud-label{
-    font-family:'Press Start 2P', cursive;
-    font-size:9px;
-    color:var(--yellow);
-    margin-bottom:12px;
-    letter-spacing:1px;
-}
-.resumen{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-bottom:20px;
-}
-.tarjeta{
-    flex:1;
-    min-width:160px;
-    background:var(--panel);
-    padding:15px;
-    text-align:center;
-    border:3px solid var(--border);
-    border-radius:0;
-    box-shadow:4px 4px 0 #000;
-    position:relative;
-}
-.tarjeta::after{
-    content:"";
-    position:absolute;
-    top:3px; left:3px; right:-6px; bottom:-6px;
-    border:1px solid rgba(255,255,255,0.05);
-    pointer-events:none;
-}
-.tarjeta h3{
-    margin:0 0 10px 0;
-    font-family:'Press Start 2P', cursive;
-    font-size:9px;
-    color:white;
-}
-.numero{
-    font-family:'Press Start 2P', cursive;
-    font-size:18px;
-    font-weight:normal;
-    color:var(--green);
-    text-shadow:0 0 8px var(--green);
-    min-height:24px;
-}
-#estado{font-size:11px; color:var(--yellow); line-height:1.5;}
-#aprovechamiento{color:var(--cyan);}
-.clasificacion{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    margin-bottom:20px;
-}
-.clasificacion .tarjeta{border-color:var(--green-dark);}
-#metal{color:var(--yellow);}
-#plastico{color:var(--cyan);}
-#vidrio{color:#fff;}
-#organico{color:var(--green);}
-.panel{
-    background:var(--panel);
     padding:20px;
-    border:4px solid var(--green);
-    box-shadow:6px 6px 0 #000, 0 0 15px rgba(0,255,136,0.2);
-}
-.panel h2{
-    font-family:'Press Start 2P', cursive;
-    font-size:12px;
-    color:var(--green);
-    margin-top:0;
-}
-button{
-    background:var(--green);
-    color:#000;
-    border:none;
-    padding:14px 22px;
-    cursor:pointer;
-    font-family:'Press Start 2P', cursive;
-    font-size:12px;
-    box-shadow:4px 4px 0 #000, 0 0 10px var(--green);
-    transition:0.1s;
-    width:100%;
-}
-button:hover{
-    background:var(--yellow);
-    box-shadow:4px 4px 0 #000, 0 0 15px var(--yellow);
-    transform:translate(-1px,-1px);
-}
-button:active{
-    transform:translate(3px,3px);
-    box-shadow:1px 1px 0 #000;
-}
-textarea{
-    width:100%;
-    min-height:260px;
-    margin-top:15px;
-    padding:12px;
-    box-sizing:border-box;
-    resize:vertical;
-    background:#080810;
-    color:var(--green);
-    border:3px solid var(--border);
-    font-family:'VT323', monospace;
-    font-size:20px;
-    line-height:1.2;
-    box-shadow:inset 0 0 10px rgba(0,255,136,0.2);
-}
-textarea:focus{outline:none; border-color:var(--green);}
-footer{
-    margin-top:30px;
-    background:var(--panel);
-    border-top:3px solid var(--border);
-    color:#555;
+  }
+ .machine{
+    max-width:850px;
+    margin:0 auto;
+    background:#22223a;
+    border:8px solid #fff;
+    outline:4px solid #000;
+    box-shadow: 0 0 0 8px #000, 15px 15px 0 #000;
+    padding:20px;
+  }
+ .screen-top{
+    background:#000;
+    border:4px solid #555;
+    padding:20px;
     text-align:center;
-    padding:15px;
+    margin-bottom:20px;
+  }
+ .screen-top h1{font-size:20px; color:#ffe600; text-shadow:4px 4px 0 #ff006a; line-height:1.5;}
+ .screen-top p{font-size:8px; color:#00ff88; margin-top:15px; letter-spacing:1px;}
+
+ .hud{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
+  }
+ .hud-box{
+    background:#000;
+    border:3px solid #fff;
+    padding:12px 8px;
+    text-align:center;
+  }
+ .hud-box span{font-size:7px; display:block; margin-bottom:10px; color:#aaa;}
+ .hud-box.numero{font-size:14px; color:#00ff88; text-shadow:0 0 5px #00ff88;}
+  #estado{font-size:8px!important; color:#ffe600!important; line-height:1.6;}
+
+ .inventory-title{font-size:9px; margin:15px 0 10px 0; color:#00e5ff;}
+ .clasificacion{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:10px;
+    margin-bottom:20px;
+  }
+ .item-card{
+    background:#111;
+    border:3px solid #444;
+    padding:15px 5px;
+    text-align:center;
+  }
+ .item-card h3{font-size:7px; margin-bottom:12px;}
+ .item-card.numero{font-size:20px; color:#fff;}
+
+ .control-panel{
+    background:#000;
+    border:4px dashed #ffe600;
+    padding:18px;
+  }
+ .control-panel h2{font-size:10px; color:#ffe600; margin-bottom:15px;}
+ .btn-arcade{
+    background:#ff006a;
+    color:#fff;
+    border:0;
+    border-bottom:6px solid #99003f;
+    border-right:6px solid #99003f;
+    padding:18px;
+    width:100%;
     font-family:'Press Start 2P', cursive;
-    font-size:8px;
-}
-.barra{height:8px; background:#000; border:2px solid var(--border); margin-top:10px; overflow:hidden;}
-.barra-fill{height:100%; width:0%; background:var(--green); box-shadow:0 0 5px var(--green); transition:0.3s;}
-@media(max-width:700px){
-    .clasificacion{grid-template-columns:repeat(2,1fr);}
-    header h1{font-size:14px;}
-}
+    font-size:11px;
+    cursor:pointer;
+  }
+ .btn-arcade:active{
+    border:0;
+    transform:translate(6px,6px);
+  }
+ .btn-arcade:hover{background:#ff2a84;}
+
+  #telemetria{
+    width:100%;
+    height:220px;
+    margin-top:15px;
+    background:#001a0e;
+    color:#00ff88;
+    border:3px solid #00ff88;
+    padding:10px;
+    font-family:monospace;
+    font-size:14px;
+    font-weight:bold;
+  }
+  footer{margin-top:20px; text-align:center; font-size:7px; color:#888;}
+
+  @media(max-width:650px){
+   .hud{grid-template-columns:1fr;}
+   .clasificacion{grid-template-columns:1fr 1fr;}
+   .screen-top h1{font-size:14px;}
+  }
 </style>
 </head>
 <body>
 
-<header>
-    <h1>♻️ RECYCLE QUEST ♻️</h1>
-    <p>> MONITOREO EN VIVO v1.0 _</p>
-</header>
+<div class="machine">
+  <div class="screen-top">
+    <h1>PIXEL RECYCLER</h1>
+    <p>> INSERT COIN - SISTEMA DE MONITOREO <</p>
+  </div>
 
-<div class="contenedor">
-
-    <div class="hud-label">> STATUS DEL SISTEMA</div>
-    <div class="resumen">
-        <div class="tarjeta">
-            <h3>LOTE</h3>
-            <div class="numero" id="lote">0 / 20</div>
-            <div class="barra"><div class="barra-fill" id="barra-lote"></div></div>
-        </div>
-        <div class="tarjeta">
-            <h3>% APROVECHADO</h3>
-            <div class="numero" id="aprovechamiento">0%</div>
-        </div>
-        <div class="tarjeta">
-            <h3>ESTADO</h3>
-            <div class="numero" id="estado">En espera</div>
-        </div>
+  <div class="hud">
+    <div class="hud-box">
+      <span>LOTE</span>
+      <div class="numero" id="lote">0 / 20</div>
     </div>
-
-    <div class="hud-label">> INVENTARIO CLASIFICADO</div>
-    <div class="clasificacion">
-        <div class="tarjeta">
-            <h3>🥫 METAL</h3>
-            <div class="numero" id="metal">0</div>
-        </div>
-        <div class="tarjeta">
-            <h3>♻️ PLASTICO</h3>
-            <div class="numero" id="plastico">0</div>
-        </div>
-        <div class="tarjeta">
-            <h3>🍾 VIDRIO</h3>
-            <div class="numero" id="vidrio">0</div>
-        </div>
-        <div class="tarjeta">
-            <h3>🍃 ORGANICO</h3>
-            <div class="numero" id="organico">0</div>
-        </div>
+    <div class="hud-box">
+      <span>APROVECHAMIENTO</span>
+      <div class="numero" id="aprovechamiento">0%</div>
     </div>
-
-    <div class="panel">
-        <h2>[!] CONSOLA DE SIMULACION</h2>
-        <button onclick="simularCorrida()">▶ INICIAR SIMULACION [20 OBJ]</button>
-        <h2 style="margin-top:25px;">[ LOG DE TELEMETRIA ]</h2>
-        <textarea id="telemetria" readonly placeholder="> Esperando inicio de partida..."></textarea>
+    <div class="hud-box">
+      <span>ESTADO</span>
+      <div class="numero" id="estado">En espera</div>
     </div>
+  </div>
 
+  <div class="inventory-title">INVENTARIO:</div>
+  <div class="clasificacion">
+    <div class="item-card" style="border-color:#ffe600;">
+      <h3 style="color:#ffe600;">METAL</h3>
+      <div class="numero" id="metal">0</div>
+    </div>
+    <div class="item-card" style="border-color:#00e5ff;">
+      <h3 style="color:#00e5ff;">PLASTICO</h3>
+      <div class="numero" id="plastico">0</div>
+    </div>
+    <div class="item-card" style="border-color:#fff;">
+      <h3 style="color:#fff;">VIDRIO</h3>
+      <div class="numero" id="vidrio">0</div>
+    </div>
+    <div class="item-card" style="border-color:#00ff88;">
+      <h3 style="color:#00ff88;">ORGANICO</h3>
+      <div class="numero" id="organico">0</div>
+    </div>
+  </div>
+
+  <div class="control-panel">
+    <h2>CONSOLA - P1 START</h2>
+    <button class="btn-arcade" onclick="simularCorrida()">[A] SIMULAR 20 OBJETOS</button>
+    <textarea id="telemetria" readonly placeholder="> LOG VACIO... PRESIONA START"></textarea>
+  </div>
+
+  <footer>MONITOREO EN VIVO © 2026 - CREDIT 01</footer>
 </div>
 
-<footer>
-    INSERT COIN TO CONTINUE - Monitoreo en Vivo © 2026 - LVL 99
-</footer>
-
 <script>
+// FUNCION ORIGINAL - NO CAMBIA NADA DE LOGICA
 function simularCorrida(){
     let metal = 0;
     let plastico = 0;
@@ -253,14 +170,13 @@ function simularCorrida(){
     let organico = 0;
     let registro = "";
     const residuos = ["Metal","Plástico","Vidrio","Orgánico"];
-    document.getElementById("estado").textContent = "PROCESANDO...";
-    document.getElementById("estado").style.color = "#ff2e97";
+    document.getElementById("estado").textContent = "PROCESANDO";
     for(let i=1; i<=20; i++){
         const residuo = residuos[Math.floor(Math.random()*residuos.length)];
-        if(residuo==="Metal"){ metal++; registro += "OBJETO " + i + " → [METAL] +1 pts\n"; }
-        if(residuo==="Plástico"){ plastico++; registro += "OBJETO " + i + " → [PLASTICO] +1 pts\n"; }
-        if(residuo==="Vidrio"){ vidrio++; registro += "OBJETO " + i + " → [VIDRIO] +1 pts\n"; }
-        if(residuo==="Orgánico"){ organico++; registro += "OBJETO " + i + " → [ORGANICO] +1 pts\n"; }
+        if(residuo==="Metal"){ metal++; registro += "OBJETO " + i + " → METAL\n"; }
+        if(residuo==="Plástico"){ plastico++; registro += "OBJETO " + i + " → PLASTICO\n"; }
+        if(residuo==="Vidrio"){ vidrio++; registro += "OBJETO " + i + " → VIDRIO\n"; }
+        if(residuo==="Orgánico"){ organico++; registro += "OBJETO " + i + " → ORGANICO\n"; }
     }
     const total = metal + plastico + vidrio + organico;
     const porcentaje = (total/20)*100;
@@ -270,11 +186,8 @@ function simularCorrida(){
     document.getElementById("vidrio").textContent = vidrio;
     document.getElementById("organico").textContent = organico;
     document.getElementById("aprovechamiento").textContent = porcentaje + "%";
-    document.getElementById("barra-lote").style.width = porcentaje + "%";
-    document.getElementById("estado").textContent = "¡NIVEL COMPLETADO!";
-    document.getElementById("estado").style.color = "#00ff88";
-    registro += "\n> MISION COMPLETADA: " + total + " OBJETOS PROCESADOS\n> PUNTAJE TOTAL: " + porcentaje + "%";
-    document.getElementById("telemetria").value = registro;
+    document.getElementById("estado").textContent = "FINALIZADO!";
+    document.getElementById("telemetria").value = registro + "\n>> MISION COMPLETADA <<";
 }
 </script>
 </body>
