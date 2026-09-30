@@ -3,58 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>PIXEL RECYCLER - COIN EDITION</title>
+<title>PIXEL RECYCLER - COIN FIX</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
   body{margin:0; background:#0d0d21; font-family:'Press Start 2P',cursive; color:#fff; padding:16px; overflow-x:hidden;}
-  .cabinet{max-width:900px; margin:0 auto; background:#1a1a3a; border:6px solid #fff; box-shadow:10px 10px 0 #000; padding:16px; position:relative; overflow:hidden;}
-  header{text-align:center; background:#000; border:4px solid #00ff88; padding:20px; margin-bottom:16px; position:relative; z-index:2;}
-  header h1{font-size:18px; color:#00ff88; line-height:1.4; text-shadow:3px 3px 0 #000;}
+  .cabinet{max-width:900px; margin:0 auto; background:#1a1a3a; border:6px solid #fff; box-shadow:10px 10px 0 #000; padding:16px; position:relative;}
+  header{text-align:center; background:#000; border:4px solid #00ff88; padding:20px; margin-bottom:16px;}
+  header h1{font-size:18px; color:#00ff88; line-height:1.4;}
   header p{font-size:8px; color:#00e5ff; margin-top:12px;}
-  .label{font-size:8px; color:#ffe600; margin:18px 0 8px 0; position:relative; z-index:2;}
-  .resumen{display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:2;}
+  .label{font-size:8px; color:#ffe600; margin:18px 0 8px 0;}
+  .resumen{display:flex; gap:10px; flex-wrap:wrap;}
   .box{flex:1; min-width:140px; background:#000; border:3px solid #fff; padding:12px; text-align:center;}
   .box span{font-size:7px; color:#aaa; display:block; margin-bottom:8px;}
   .numero{font-size:14px; color:#00ff88;}
   #estado{font-size:9px; color:#ffe600; line-height:1.5;}
-  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; position:relative; z-index:2;}
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
   .card{background:#000; border:3px solid #333; padding:14px 5px; text-align:center;}
   .card h3{font-size:7px; margin:0 0 10px 0;}
   .card .numero{font-size:22px; color:#fff;}
-  .panel{background:#000; border:4px solid #ffe600; padding:16px; margin-top:10px; position:relative; z-index:2;}
+  .panel{background:#000; border:4px solid #ffe600; padding:16px; margin-top:10px;}
   .panel h2{font-size:9px; color:#ffe600; margin:0 0 14px 0;}
-  button{width:100%; background:#00ff88; color:#000; font-family:'Press Start 2P',cursive; font-size:11px; padding:16px; border:none; border-bottom:6px solid #009652; cursor:pointer;}
-  button:active{transform:translateY(4px); border-bottom:2px solid #009652;}
-  textarea{width:100%; height:240px; margin-top:14px; background:#020a05; color:#00ff88; border:3px solid #00ff88; padding:10px; font-family:monospace; font-size:14px; font-weight:bold;}
-  footer{text-align:center; font-size:7px; color:#666; margin-top:16px; position:relative; z-index:2;}
+  button{width:100%; background:#00ff88; color:#000; font-family:'Press Start 2P',cursive; font-size:11px; padding:16px; border:none; border-bottom:6px solid #009652; cursor:pointer; position:relative; z-index:5;}
+  textarea{width:100%; height:240px; margin-top:14px; background:#020a05; color:#00ff88; border:3px solid #00ff88; padding:10px; font-family:monospace; font-size:14px;}
+  footer{text-align:center; font-size:7px; color:#666; margin-top:16px;}
 
-  /* EFECTO MONEDAS */
-  #coin-container{position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; overflow:hidden;}
+  /* MONEDAS ARREGLADAS - PANTALLA COMPLETA */
+  #coin-layer{
+    position:fixed;
+    top:0; left:0;
+    width:100vw; height:100vh;
+    pointer-events:none;
+    z-index:9999;
+    overflow:hidden;
+  }
   .coin{
     position:absolute;
-    top:-40px;
-    font-size:22px;
-    animation: caer linear forwards;
-    text-shadow:0 0 8px #ffe600;
+    top:-50px;
+    font-size:28px;
+    animation: fall linear forwards;
+    will-change: transform;
   }
-  @keyframes caer{
-    0%{transform:translateY(0) rotate(0deg) translateX(0);}
-    100%{transform:translateY(110vh) rotate(720deg) translateX(30px); opacity:0;}
+  @keyframes fall{
+    0%{transform:translateY(0) rotate(0deg);}
+    100%{transform:translateY(110vh) rotate(720deg);}
   }
-  .flash{animation: flash 0.2s;}
-  @keyframes flash{0%{background:#ffe600;} 100%{background:#000;}}
 
-  @media(max-width:600px){.grid{grid-template-columns:1fr 1fr;} .resumen{flex-direction:column;} header h1{font-size:12px;}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr 1fr;} header h1{font-size:12px;}}
 </style>
 </head>
 <body>
-<div class="cabinet" id="cabinet">
-  <div id="coin-container"></div>
-  <header id="header-flash">
+
+<div id="coin-layer"></div>
+
+<div class="cabinet">
+  <header>
     <h1>♻️ RECYCLE QUEST ♻️</h1>
-    <p>> COIN EDITION - INSERT COIN_</p>
+    <p>> INSERT COIN v3.0_</p>
   </header>
 
   <div class="label">> PLAYER STATS</div>
@@ -64,46 +69,43 @@
     <div class="box"><span>ESTADO</span><div class="numero" id="estado">En espera</div></div>
   </div>
 
-  <div class="label">> MATERIALES RECOLECTADOS</div>
+  <div class="label">> MATERIALES</div>
   <div class="grid">
     <div class="card" style="border-color:#ffe600"><h3 style="color:#ffe600">METAL</h3><div class="numero" id="metal">0</div></div>
     <div class="card" style="border-color:#00e5ff"><h3 style="color:#00e5ff">PLASTICO</h3><div class="numero" id="plastico">0</div></div>
-    <div class="card" style="border-color:#ffffff"><h3 style="color:#fff">VIDRIO</h3><div class="numero" id="vidrio">0</div></div>
+    <div class="card" style="border-color:#fff"><h3 style="color:#fff">VIDRIO</h3><div class="numero" id="vidrio">0</div></div>
     <div class="card" style="border-color:#00ff88"><h3 style="color:#00ff88">ORGANICO</h3><div class="numero" id="organico">0</div></div>
   </div>
 
   <div class="panel">
     <h2>[!] PRESIONA START</h2>
     <button onclick="simularCorrida()">▶ SIMULAR 20 OBJETOS</button>
-    <textarea id="telemetria" readonly placeholder="> LOG DEL SISTEMA..."></textarea>
+    <textarea id="telemetria" readonly placeholder="> LOG..."></textarea>
   </div>
 
-  <footer>MONITOREO EN VIVO © 2026 - CREDIT 01</footer>
+  <footer>MONITOREO EN VIVO © 2026</footer>
 </div>
 
 <script>
-function lanzarMonedas(cantidad){
-  const cont = document.getElementById("coin-container");
-  const emojis = ["🪙","💰","✨"];
-  for(let i=0;i<cantidad;i++){
-    setTimeout(()=>{
-      const coin = document.createElement("div");
-      coin.className = "coin";
-      coin.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-      coin.style.left = Math.random()*100 + "%";
-      coin.style.animationDuration = (Math.random()*1 + 1.2) + "s";
-      coin.style.fontSize = (Math.random()*10 + 16) + "px";
-      cont.appendChild(coin);
-      setTimeout(()=>coin.remove(), 2500);
-    }, i*80);
+function lanzarMonedas(n){
+  const layer = document.getElementById("coin-layer");
+  layer.innerHTML = ""; // limpia anteriores
+  for(let i=0;i<n;i++){
+    const c = document.createElement("div");
+    c.className = "coin";
+    c.innerHTML = "🪙";
+    c.style.left = (Math.random()*95) + "vw";
+    c.style.animationDuration = (Math.random()*1 + 1) + "s";
+    c.style.animationDelay = (Math.random()*0.5) + "s";
+    c.style.fontSize = (20 + Math.random()*20) + "px";
+    layer.appendChild(c);
   }
+  // borrar despues de 3 seg
+  setTimeout(()=>{ layer.innerHTML=""; }, 3000);
 }
 
 function simularCorrida(){
-    lanzarMonedas(30);
-    const header = document.getElementById("header-flash");
-    header.classList.add("flash");
-    setTimeout(()=>header.classList.remove("flash"),200);
+    lanzarMonedas(40);
 
     let metal=0, plastico=0, vidrio=0, organico=0;
     let registro="";
@@ -111,10 +113,10 @@ function simularCorrida(){
     document.getElementById("estado").textContent="PROCESANDO...";
     for(let i=1;i<=20;i++){
         const r=residuos[Math.floor(Math.random()*residuos.length)];
-        if(r==="Metal"){metal++; registro+="LVL "+i+" → METAL 🪙\n";}
-        if(r==="Plástico"){plastico++; registro+="LVL "+i+" → PLASTICO 🪙\n";}
-        if(r==="Vidrio"){vidrio++; registro+="LVL "+i+" → VIDRIO 🪙\n";}
-        if(r==="Orgánico"){organico++; registro+="LVL "+i+" → ORGANICO 🪙\n";}
+        if(r==="Metal"){metal++; registro+="OBJ "+i+" → METAL\n";}
+        if(r==="Plástico"){plastico++; registro+="OBJ "+i+" → PLASTICO\n";}
+        if(r==="Vidrio"){vidrio++; registro+="OBJ "+i+" → VIDRIO\n";}
+        if(r==="Orgánico"){organico++; registro+="OBJ "+i+" → ORGANICO\n";}
     }
     const total=metal+plastico+vidrio+organico;
     const porcentaje=(total/20)*100;
@@ -124,10 +126,8 @@ function simularCorrida(){
     document.getElementById("vidrio").textContent=vidrio;
     document.getElementById("organico").textContent=organico;
     document.getElementById("aprovechamiento").textContent=porcentaje+"%";
-    document.getElementById("estado").textContent="NIVEL COMPLETADO!";
-    document.getElementById("telemetria").value=registro+"\n>> BONUS +"+total+" COINS <<\n>> "+porcentaje+"% COMPLETADO <<";
-    
-    setTimeout(()=>lanzarMonedas(20), 400);
+    document.getElementById("estado").textContent="¡NIVEL COMPLETADO!";
+    document.getElementById("telemetria").value=registro+"\n>> +"+total+" COINS <<";
 }
 </script>
 </body>
