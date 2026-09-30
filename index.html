@@ -3,239 +3,279 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monitoreo en Vivo</title>
-
+<title>RECYCLE QUEST // Monitoreo en Vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
+:root{
+  --bg:#0a0a12;
+  --green:#00ff88;
+  --green-dark:#00cc6a;
+  --yellow:#ffeb3b;
+  --pink:#ff2e97;
+  --cyan:#00e5ff;
+  --panel:#151528;
+  --border:#2a2a4a;
+}
+*{box-sizing:border-box; image-rendering: pixelated;}
 body{
-    font-family: Arial, sans-serif;
+    font-family:'VT323', monospace;
     margin:0;
-    background:#f5f5f5;
-}
-
-header{
-    background:#198754;
+    background:var(--bg);
     color:white;
-    text-align:center;
-    padding:30px;
+    font-size:20px;
+    overflow-x:hidden;
 }
-
+body::before{
+    content:"";
+    position:fixed;
+    top:0;left:0;right:0;bottom:0;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, transparent 2px, transparent 4px);
+    pointer-events:none;
+    z-index:999;
+}
+header{
+    background:var(--panel);
+    border-bottom:4px solid var(--green);
+    text-align:center;
+    padding:25px 15px;
+    box-shadow:0 0 20px rgba(0,255,136,0.3);
+    position:relative;
+}
+header h1{
+    font-family:'Press Start 2P', cursive;
+    font-size:22px;
+    color:var(--green);
+    text-shadow:0 0 10px var(--green), 3px 3px 0 #000;
+    margin:0;
+    line-height:1.4;
+}
+header p{
+    font-family:'Press Start 2P', cursive;
+    font-size:10px;
+    color:var(--cyan);
+    margin-top:15px;
+    letter-spacing:2px;
+}
 .contenedor{
-    width:90%;
+    width:92%;
     max-width:1000px;
     margin:20px auto;
 }
-
+.hud-label{
+    font-family:'Press Start 2P', cursive;
+    font-size:9px;
+    color:var(--yellow);
+    margin-bottom:12px;
+    letter-spacing:1px;
+}
 .resumen{
     display:flex;
     flex-wrap:wrap;
-    gap:15px;
+    gap:12px;
     margin-bottom:20px;
 }
-
 .tarjeta{
     flex:1;
-    min-width:180px;
-    background:white;
-    padding:20px;
+    min-width:160px;
+    background:var(--panel);
+    padding:15px;
     text-align:center;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    border:3px solid var(--border);
+    border-radius:0;
+    box-shadow:4px 4px 0 #000;
+    position:relative;
 }
-
+.tarjeta::after{
+    content:"";
+    position:absolute;
+    top:3px; left:3px; right:-6px; bottom:-6px;
+    border:1px solid rgba(255,255,255,0.05);
+    pointer-events:none;
+}
 .tarjeta h3{
-    margin-top:0;
-    color:#198754;
+    margin:0 0 10px 0;
+    font-family:'Press Start 2P', cursive;
+    font-size:9px;
+    color:white;
 }
-
 .numero{
-    font-size:30px;
-    font-weight:bold;
+    font-family:'Press Start 2P', cursive;
+    font-size:18px;
+    font-weight:normal;
+    color:var(--green);
+    text-shadow:0 0 8px var(--green);
+    min-height:24px;
 }
-
+#estado{font-size:11px; color:var(--yellow); line-height:1.5;}
+#aprovechamiento{color:var(--cyan);}
 .clasificacion{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
     margin-bottom:20px;
 }
-
+.clasificacion .tarjeta{border-color:var(--green-dark);}
+#metal{color:var(--yellow);}
+#plastico{color:var(--cyan);}
+#vidrio{color:#fff;}
+#organico{color:var(--green);}
 .panel{
-    background:white;
+    background:var(--panel);
     padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    border:4px solid var(--green);
+    box-shadow:6px 6px 0 #000, 0 0 15px rgba(0,255,136,0.2);
 }
-
+.panel h2{
+    font-family:'Press Start 2P', cursive;
+    font-size:12px;
+    color:var(--green);
+    margin-top:0;
+}
 button{
-    background:#198754;
-    color:white;
+    background:var(--green);
+    color:#000;
     border:none;
-    padding:12px 20px;
-    border-radius:6px;
+    padding:14px 22px;
     cursor:pointer;
-    font-size:16px;
+    font-family:'Press Start 2P', cursive;
+    font-size:12px;
+    box-shadow:4px 4px 0 #000, 0 0 10px var(--green);
+    transition:0.1s;
+    width:100%;
 }
-
 button:hover{
-    background:#146c43;
+    background:var(--yellow);
+    box-shadow:4px 4px 0 #000, 0 0 15px var(--yellow);
+    transform:translate(-1px,-1px);
 }
-
+button:active{
+    transform:translate(3px,3px);
+    box-shadow:1px 1px 0 #000;
+}
 textarea{
     width:100%;
-    min-height:250px;
+    min-height:260px;
     margin-top:15px;
-    padding:10px;
+    padding:12px;
     box-sizing:border-box;
     resize:vertical;
+    background:#080810;
+    color:var(--green);
+    border:3px solid var(--border);
+    font-family:'VT323', monospace;
+    font-size:20px;
+    line-height:1.2;
+    box-shadow:inset 0 0 10px rgba(0,255,136,0.2);
 }
-
+textarea:focus{outline:none; border-color:var(--green);}
 footer{
     margin-top:30px;
-    background:#198754;
-    color:white;
+    background:var(--panel);
+    border-top:3px solid var(--border);
+    color:#555;
     text-align:center;
     padding:15px;
+    font-family:'Press Start 2P', cursive;
+    font-size:8px;
 }
-
-@media(max-width:600px){
-    .clasificacion{
-        grid-template-columns:1fr;
-    }
+.barra{height:8px; background:#000; border:2px solid var(--border); margin-top:10px; overflow:hidden;}
+.barra-fill{height:100%; width:0%; background:var(--green); box-shadow:0 0 5px var(--green); transition:0.3s;}
+@media(max-width:700px){
+    .clasificacion{grid-template-columns:repeat(2,1fr);}
+    header h1{font-size:14px;}
 }
 </style>
 </head>
-
 <body>
 
 <header>
-    <h1>Monitoreo en Vivo</h1>
-    <p>Sistema de Monitoreo</p>
+    <h1>♻️ RECYCLE QUEST ♻️</h1>
+    <p>> MONITOREO EN VIVO v1.0 _</p>
 </header>
 
 <div class="contenedor">
 
+    <div class="hud-label">> STATUS DEL SISTEMA</div>
     <div class="resumen">
-
         <div class="tarjeta">
-            <h3>Lote</h3>
+            <h3>LOTE</h3>
             <div class="numero" id="lote">0 / 20</div>
+            <div class="barra"><div class="barra-fill" id="barra-lote"></div></div>
         </div>
-
         <div class="tarjeta">
-            <h3>Aprovechamiento</h3>
+            <h3>% APROVECHADO</h3>
             <div class="numero" id="aprovechamiento">0%</div>
         </div>
-
         <div class="tarjeta">
-            <h3>Estado</h3>
+            <h3>ESTADO</h3>
             <div class="numero" id="estado">En espera</div>
         </div>
-
     </div>
 
+    <div class="hud-label">> INVENTARIO CLASIFICADO</div>
     <div class="clasificacion">
-
         <div class="tarjeta">
-            <h3>🥫 Metal</h3>
+            <h3>🥫 METAL</h3>
             <div class="numero" id="metal">0</div>
         </div>
-
         <div class="tarjeta">
-            <h3>♻️ Plástico</h3>
+            <h3>♻️ PLASTICO</h3>
             <div class="numero" id="plastico">0</div>
         </div>
-
         <div class="tarjeta">
-            <h3>🍾 Vidrio</h3>
+            <h3>🍾 VIDRIO</h3>
             <div class="numero" id="vidrio">0</div>
         </div>
-
         <div class="tarjeta">
-            <h3>🍃 Orgánico</h3>
+            <h3>🍃 ORGANICO</h3>
             <div class="numero" id="organico">0</div>
         </div>
-
     </div>
 
     <div class="panel">
-
-        <h2>Simulación del monitoreo</h2>
-
-        <button onclick="simularCorrida()">
-            Simular 20 objetos
-        </button>
-
-        <h2>Registro</h2>
-
-        <textarea id="telemetria" readonly></textarea>
-
+        <h2>[!] CONSOLA DE SIMULACION</h2>
+        <button onclick="simularCorrida()">▶ INICIAR SIMULACION [20 OBJ]</button>
+        <h2 style="margin-top:25px;">[ LOG DE TELEMETRIA ]</h2>
+        <textarea id="telemetria" readonly placeholder="> Esperando inicio de partida..."></textarea>
     </div>
 
 </div>
 
 <footer>
-    Monitoreo en Vivo © 2026
+    INSERT COIN TO CONTINUE - Monitoreo en Vivo © 2026 - LVL 99
 </footer>
 
 <script>
 function simularCorrida(){
-
     let metal = 0;
     let plastico = 0;
     let vidrio = 0;
     let organico = 0;
-
     let registro = "";
-
-    const residuos = [
-        "Metal",
-        "Plástico",
-        "Vidrio",
-        "Orgánico"
-    ];
-
-    document.getElementById("estado").textContent = "Procesando";
-
+    const residuos = ["Metal","Plástico","Vidrio","Orgánico"];
+    document.getElementById("estado").textContent = "PROCESANDO...";
+    document.getElementById("estado").style.color = "#ff2e97";
     for(let i=1; i<=20; i++){
-
-        const residuo =
-        residuos[Math.floor(Math.random()*residuos.length)];
-
-        if(residuo==="Metal"){
-            metal++;
-            registro += "Objeto " + i + " → METAL\n";
-        }
-
-        if(residuo==="Plástico"){
-            plastico++;
-            registro += "Objeto " + i + " → PLÁSTICO\n";
-        }
-
-        if(residuo==="Vidrio"){
-            vidrio++;
-            registro += "Objeto " + i + " → VIDRIO\n";
-        }
-
-        if(residuo==="Orgánico"){
-            organico++;
-            registro += "Objeto " + i + " → ORGÁNICO\n";
-        }
+        const residuo = residuos[Math.floor(Math.random()*residuos.length)];
+        if(residuo==="Metal"){ metal++; registro += "OBJETO " + i + " → [METAL] +1 pts\n"; }
+        if(residuo==="Plástico"){ plastico++; registro += "OBJETO " + i + " → [PLASTICO] +1 pts\n"; }
+        if(residuo==="Vidrio"){ vidrio++; registro += "OBJETO " + i + " → [VIDRIO] +1 pts\n"; }
+        if(residuo==="Orgánico"){ organico++; registro += "OBJETO " + i + " → [ORGANICO] +1 pts\n"; }
     }
-
     const total = metal + plastico + vidrio + organico;
     const porcentaje = (total/20)*100;
-
     document.getElementById("lote").textContent = total + " / 20";
     document.getElementById("metal").textContent = metal;
     document.getElementById("plastico").textContent = plastico;
     document.getElementById("vidrio").textContent = vidrio;
     document.getElementById("organico").textContent = organico;
     document.getElementById("aprovechamiento").textContent = porcentaje + "%";
-    document.getElementById("estado").textContent = "Finalizado";
-
+    document.getElementById("barra-lote").style.width = porcentaje + "%";
+    document.getElementById("estado").textContent = "¡NIVEL COMPLETADO!";
+    document.getElementById("estado").style.color = "#00ff88";
+    registro += "\n> MISION COMPLETADA: " + total + " OBJETOS PROCESADOS\n> PUNTAJE TOTAL: " + porcentaje + "%";
     document.getElementById("telemetria").value = registro;
 }
 </script>
-
 </body>
 </html>
