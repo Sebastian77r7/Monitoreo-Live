@@ -4,39 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>PIXEL RECYCLER QUEST</title>
+<title>PIXEL RECYCLER - COIN EDITION</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
-  body{margin:0; background:#0d0d21; font-family:'Press Start 2P',cursive; color:#fff; padding:16px;}
-  .cabinet{max-width:900px; margin:0 auto; background:#1a1a3a; border:6px solid #fff; box-shadow:10px 10px 0 #000; padding:16px;}
-  header{text-align:center; background:#000; border:4px solid #00ff88; padding:20px; margin-bottom:16px;}
+  body{margin:0; background:#0d0d21; font-family:'Press Start 2P',cursive; color:#fff; padding:16px; overflow-x:hidden;}
+  .cabinet{max-width:900px; margin:0 auto; background:#1a1a3a; border:6px solid #fff; box-shadow:10px 10px 0 #000; padding:16px; position:relative; overflow:hidden;}
+  header{text-align:center; background:#000; border:4px solid #00ff88; padding:20px; margin-bottom:16px; position:relative; z-index:2;}
   header h1{font-size:18px; color:#00ff88; line-height:1.4; text-shadow:3px 3px 0 #000;}
   header p{font-size:8px; color:#00e5ff; margin-top:12px;}
-  .label{font-size:8px; color:#ffe600; margin:18px 0 8px 0;}
-  .resumen{display:flex; gap:10px; flex-wrap:wrap;}
+  .label{font-size:8px; color:#ffe600; margin:18px 0 8px 0; position:relative; z-index:2;}
+  .resumen{display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:2;}
   .box{flex:1; min-width:140px; background:#000; border:3px solid #fff; padding:12px; text-align:center;}
   .box span{font-size:7px; color:#aaa; display:block; margin-bottom:8px;}
   .numero{font-size:14px; color:#00ff88;}
   #estado{font-size:9px; color:#ffe600; line-height:1.5;}
-  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; position:relative; z-index:2;}
   .card{background:#000; border:3px solid #333; padding:14px 5px; text-align:center;}
   .card h3{font-size:7px; margin:0 0 10px 0;}
   .card .numero{font-size:22px; color:#fff;}
-  .panel{background:#000; border:4px solid #ffe600; padding:16px; margin-top:10px;}
+  .panel{background:#000; border:4px solid #ffe600; padding:16px; margin-top:10px; position:relative; z-index:2;}
   .panel h2{font-size:9px; color:#ffe600; margin:0 0 14px 0;}
   button{width:100%; background:#00ff88; color:#000; font-family:'Press Start 2P',cursive; font-size:11px; padding:16px; border:none; border-bottom:6px solid #009652; cursor:pointer;}
   button:active{transform:translateY(4px); border-bottom:2px solid #009652;}
   textarea{width:100%; height:240px; margin-top:14px; background:#020a05; color:#00ff88; border:3px solid #00ff88; padding:10px; font-family:monospace; font-size:14px; font-weight:bold;}
-  footer{text-align:center; font-size:7px; color:#666; margin-top:16px;}
+  footer{text-align:center; font-size:7px; color:#666; margin-top:16px; position:relative; z-index:2;}
+
+  /* EFECTO MONEDAS */
+  #coin-container{position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; overflow:hidden;}
+  .coin{
+    position:absolute;
+    top:-40px;
+    font-size:22px;
+    animation: caer linear forwards;
+    text-shadow:0 0 8px #ffe600;
+  }
+  @keyframes caer{
+    0%{transform:translateY(0) rotate(0deg) translateX(0);}
+    100%{transform:translateY(110vh) rotate(720deg) translateX(30px); opacity:0;}
+  }
+  .flash{animation: flash 0.2s;}
+  @keyframes flash{0%{background:#ffe600;} 100%{background:#000;}}
+
   @media(max-width:600px){.grid{grid-template-columns:1fr 1fr;} .resumen{flex-direction:column;} header h1{font-size:12px;}}
 </style>
 </head>
 <body>
-<div class="cabinet">
-  <header>
+<div class="cabinet" id="cabinet">
+  <div id="coin-container"></div>
+  <header id="header-flash">
     <h1>♻️ RECYCLE QUEST ♻️</h1>
-    <p>> SISTEMA DE MONITOREO ARCADE v2.0_</p>
+    <p>> COIN EDITION - INSERT COIN_</p>
   </header>
 
   <div class="label">> PLAYER STATS</div>
@@ -60,21 +78,43 @@
     <textarea id="telemetria" readonly placeholder="> LOG DEL SISTEMA..."></textarea>
   </div>
 
-  <footer>MONITOREO EN VIVO © 2026 - PUSH START BUTTON</footer>
+  <footer>MONITOREO EN VIVO © 2026 - CREDIT 01</footer>
 </div>
 
 <script>
+function lanzarMonedas(cantidad){
+  const cont = document.getElementById("coin-container");
+  const emojis = ["🪙","💰","✨"];
+  for(let i=0;i<cantidad;i++){
+    setTimeout(()=>{
+      const coin = document.createElement("div");
+      coin.className = "coin";
+      coin.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      coin.style.left = Math.random()*100 + "%";
+      coin.style.animationDuration = (Math.random()*1 + 1.2) + "s";
+      coin.style.fontSize = (Math.random()*10 + 16) + "px";
+      cont.appendChild(coin);
+      setTimeout(()=>coin.remove(), 2500);
+    }, i*80);
+  }
+}
+
 function simularCorrida(){
+    lanzarMonedas(30);
+    const header = document.getElementById("header-flash");
+    header.classList.add("flash");
+    setTimeout(()=>header.classList.remove("flash"),200);
+
     let metal=0, plastico=0, vidrio=0, organico=0;
     let registro="";
     const residuos=["Metal","Plástico","Vidrio","Orgánico"];
     document.getElementById("estado").textContent="PROCESANDO...";
     for(let i=1;i<=20;i++){
         const r=residuos[Math.floor(Math.random()*residuos.length)];
-        if(r==="Metal"){metal++; registro+="LVL "+i+" → METAL\n";}
-        if(r==="Plástico"){plastico++; registro+="LVL "+i+" → PLASTICO\n";}
-        if(r==="Vidrio"){vidrio++; registro+="LVL "+i+" → VIDRIO\n";}
-        if(r==="Orgánico"){organico++; registro+="LVL "+i+" → ORGANICO\n";}
+        if(r==="Metal"){metal++; registro+="LVL "+i+" → METAL 🪙\n";}
+        if(r==="Plástico"){plastico++; registro+="LVL "+i+" → PLASTICO 🪙\n";}
+        if(r==="Vidrio"){vidrio++; registro+="LVL "+i+" → VIDRIO 🪙\n";}
+        if(r==="Orgánico"){organico++; registro+="LVL "+i+" → ORGANICO 🪙\n";}
     }
     const total=metal+plastico+vidrio+organico;
     const porcentaje=(total/20)*100;
@@ -85,7 +125,9 @@ function simularCorrida(){
     document.getElementById("organico").textContent=organico;
     document.getElementById("aprovechamiento").textContent=porcentaje+"%";
     document.getElementById("estado").textContent="NIVEL COMPLETADO!";
-    document.getElementById("telemetria").value=registro+"\n>> "+total+" OBJETOS - "+porcentaje+"% <<";
+    document.getElementById("telemetria").value=registro+"\n>> BONUS +"+total+" COINS <<\n>> "+porcentaje+"% COMPLETADO <<";
+    
+    setTimeout(()=>lanzarMonedas(20), 400);
 }
 </script>
 </body>
