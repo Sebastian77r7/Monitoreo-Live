@@ -1,334 +1,241 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoreo en Vivo</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f5f5f5;
+}
 
-    <title>Monitoreo en Vivo</title>
+header{
+    background:#198754;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f5f5f5;
-        }
+.contenedor{
+    width:90%;
+    max-width:1000px;
+    margin:20px auto;
+}
 
-        header {
-            background: #198754;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-        }
+.resumen{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:20px;
+}
 
-        nav {
-            background: #146c43;
-            padding: 15px;
-            text-align: center;
-        }
+.tarjeta{
+    flex:1;
+    min-width:180px;
+    background:white;
+    padding:20px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 16px;
-            border-radius: 5px;
-        }
+.tarjeta h3{
+    margin-top:0;
+    color:#198754;
+}
 
-        nav a:hover {
-            background: #198754;
-        }
+.numero{
+    font-size:30px;
+    font-weight:bold;
+}
 
-        .contenedor {
-            width: 85%;
-            max-width: 1000px;
-            margin: 25px auto;
-        }
+.clasificacion{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
 
-        .resumen {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+.panel{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
 
-        .tarjeta {
-            flex: 1;
-            min-width: 180px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
+button{
+    background:#198754;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+}
 
-        .tarjeta h3 {
-            color: #198754;
-            margin-top: 0;
-        }
+button:hover{
+    background:#146c43;
+}
 
-        .numero {
-            font-size: 32px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
+textarea{
+    width:100%;
+    min-height:250px;
+    margin-top:15px;
+    padding:10px;
+    box-sizing:border-box;
+    resize:vertical;
+}
 
-        .clasificacion {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+footer{
+    margin-top:30px;
+    background:#198754;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
 
-        .panel {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-
-        .panel h2 {
-            color: #198754;
-        }
-
-        button {
-            background: #198754;
-            color: white;
-            border: none;
-            padding: 13px 22px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background: #146c43;
-        }
-
-        textarea {
-            width: 100%;
-            box-sizing: border-box;
-            min-height: 280px;
-            margin-top: 15px;
-            padding: 15px;
-            border: 1px solid #cccccc;
-            border-radius: 6px;
-            resize: vertical;
-            font-family: monospace;
-            background: #f8f9fa;
-        }
-
-        footer {
-            background: #198754;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: 30px;
-        }
-
-        @media (max-width: 600px) {
-            .clasificacion {
-                grid-template-columns: 1fr;
-            }
-
-            .contenedor {
-                width: 92%;
-            }
-        }
-    </style>
+@media(max-width:600px){
+    .clasificacion{
+        grid-template-columns:1fr;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <header>
-        <h1>Monitoreo en Vivo</h1>
+<header>
+    <h1>Monitoreo en Vivo</h1>
+    <p>Sistema de Monitoreo</p>
+</header>
 
-        <p>
-            Sistema de Gestión y Clasificación Automatizada de Residuos
-        </p>
-    </header>
+<div class="contenedor">
 
-    <nav>
-        <a href="index.html">Volver a la pagina principal</a>
-    </nav>
+    <div class="resumen">
 
-    <main class="contenedor">
-
-        <div class="resumen">
-
-            <div class="tarjeta">
-                <h3>Lote oficial</h3>
-                <p class="numero" id="lote">0 / 20</p>
-            </div>
-
-            <div class="tarjeta">
-                <h3>Aprovechamiento</h3>
-                <p class="numero" id="aprovechamiento">0%</p>
-            </div>
-
-            <div class="tarjeta">
-                <h3>Estado</h3>
-                <p class="numero" id="estado">En espera</p>
-            </div>
-
+        <div class="tarjeta">
+            <h3>Lote</h3>
+            <div class="numero" id="lote">0 / 20</div>
         </div>
 
-        <div class="clasificacion">
-
-            <div class="tarjeta">
-                <h3>🥫 Metal</h3>
-                <p class="numero" id="metal">0</p>
-            </div>
-
-            <div class="tarjeta">
-                <h3>♻️ Plástico</h3>
-                <p class="numero" id="plastico">0</p>
-            </div>
-
-            <div class="tarjeta">
-                <h3>🍾 Vidrio</h3>
-                <p class="numero" id="vidrio">0</p>
-            </div>
-
-            <div class="tarjeta">
-                <h3>🍃 Orgánico</h3>
-                <p class="numero" id="organico">0</p>
-            </div>
-
+        <div class="tarjeta">
+            <h3>Aprovechamiento</h3>
+            <div class="numero" id="aprovechamiento">0%</div>
         </div>
 
-        <div class="panel">
-
-            <h2>Simulación del prototipo</h2>
-
-            <p>
-                Al iniciar la simulación, el sistema procesará un lote de
-                20 objetos y mostrará el resultado de la clasificación.
-            </p>
-
-            <button onclick="simularCorrida()">
-                Simular corrida de 20 objetos
-            </button>
-
-            <h2>Registro de telemetría</h2>
-
-            <textarea
-                id="telemetria"
-                readonly
-                placeholder="Aquí aparecerán los resultados de la simulación..."
-            ></textarea>
-
+        <div class="tarjeta">
+            <h3>Estado</h3>
+            <div class="numero" id="estado">En espera</div>
         </div>
 
-    </main>
+    </div>
 
-    <footer>
-        <p>Proyecto académico 2026 ♻️</p>
-    </footer>
+    <div class="clasificacion">
 
-    <script>
-        function simularCorrida() {
+        <div class="tarjeta">
+            <h3>🥫 Metal</h3>
+            <div class="numero" id="metal">0</div>
+        </div>
 
-            let metal = 0;
-            let plastico = 0;
-            let vidrio = 0;
-            let organico = 0;
+        <div class="tarjeta">
+            <h3>♻️ Plástico</h3>
+            <div class="numero" id="plastico">0</div>
+        </div>
 
-            let telemetria = "";
+        <div class="tarjeta">
+            <h3>🍾 Vidrio</h3>
+            <div class="numero" id="vidrio">0</div>
+        </div>
 
-            const residuos = [
-                "Metal",
-                "Plástico",
-                "Vidrio",
-                "Orgánico"
-            ];
+        <div class="tarjeta">
+            <h3>🍃 Orgánico</h3>
+            <div class="numero" id="organico">0</div>
+        </div>
 
-            document.getElementById("estado").textContent =
-                "Procesando";
+    </div>
 
-            for (let i = 1; i <= 20; i++) {
+    <div class="panel">
 
-                const residuo =
-                    residuos[Math.floor(Math.random() * residuos.length)];
+        <h2>Simulación del monitoreo</h2>
 
-                if (residuo === "Metal") {
-                    metal++;
+        <button onclick="simularCorrida()">
+            Simular 20 objetos
+        </button>
 
-                    telemetria +=
-                        "[Objeto " + i + "] " +
-                        "Sensor inductivo: SÍ → METAL\n";
-                }
+        <h2>Registro</h2>
 
-                if (residuo === "Plástico") {
-                    plastico++;
+        <textarea id="telemetria" readonly></textarea>
 
-                    telemetria +=
-                        "[Objeto " + i + "] " +
-                        "Peso bajo y color detectado → PLÁSTICO\n";
-                }
+    </div>
 
-                if (residuo === "Vidrio") {
-                    vidrio++;
+</div>
 
-                    telemetria +=
-                        "[Objeto " + i + "] " +
-                        "Peso alto y material transparente → VIDRIO\n";
-                }
+<footer>
+    Monitoreo en Vivo © 2026
+</footer>
 
-                if (residuo === "Orgánico") {
-                    organico++;
+<script>
+function simularCorrida(){
 
-                    telemetria +=
-                        "[Objeto " + i + "] " +
-                        "Humedad alta → ORGÁNICO\n";
-                }
-            }
+    let metal = 0;
+    let plastico = 0;
+    let vidrio = 0;
+    let organico = 0;
 
-            const total =
-                metal + plastico + vidrio + organico;
+    let registro = "";
 
-            const porcentaje =
-                (total / 20) * 100;
+    const residuos = [
+        "Metal",
+        "Plástico",
+        "Vidrio",
+        "Orgánico"
+    ];
 
-            document.getElementById("lote").textContent =
-                total + " / 20";
+    document.getElementById("estado").textContent = "Procesando";
 
-            document.getElementById("metal").textContent =
-                metal;
+    for(let i=1; i<=20; i++){
 
-            document.getElementById("plastico").textContent =
-                plastico;
+        const residuo =
+        residuos[Math.floor(Math.random()*residuos.length)];
 
-            document.getElementById("vidrio").textContent =
-                vidrio;
-
-            document.getElementById("organico").textContent =
-                organico;
-
-            document.getElementById("aprovechamiento").textContent =
-                porcentaje.toFixed(0) + "%";
-
-            document.getElementById("estado").textContent =
-                "Finalizado";
-
-            telemetria += "\n----------------------------\n";
-            telemetria += "RESUMEN DEL LOTE\n";
-            telemetria += "Total procesado: " + total + " objetos\n";
-            telemetria += "Metal: " + metal + "\n";
-            telemetria += "Plástico: " + plastico + "\n";
-            telemetria += "Vidrio: " + vidrio + "\n";
-            telemetria += "Orgánico: " + organico + "\n";
-            telemetria +=
-                "Aprovechamiento: " +
-                porcentaje.toFixed(0) + "%\n";
-
-            document.getElementById("telemetria").value =
-                telemetria;
+        if(residuo==="Metal"){
+            metal++;
+            registro += "Objeto " + i + " → METAL\n";
         }
-    </script>
+
+        if(residuo==="Plástico"){
+            plastico++;
+            registro += "Objeto " + i + " → PLÁSTICO\n";
+        }
+
+        if(residuo==="Vidrio"){
+            vidrio++;
+            registro += "Objeto " + i + " → VIDRIO\n";
+        }
+
+        if(residuo==="Orgánico"){
+            organico++;
+            registro += "Objeto " + i + " → ORGÁNICO\n";
+        }
+    }
+
+    const total = metal + plastico + vidrio + organico;
+    const porcentaje = (total/20)*100;
+
+    document.getElementById("lote").textContent = total + " / 20";
+    document.getElementById("metal").textContent = metal;
+    document.getElementById("plastico").textContent = plastico;
+    document.getElementById("vidrio").textContent = vidrio;
+    document.getElementById("organico").textContent = organico;
+    document.getElementById("aprovechamiento").textContent = porcentaje + "%";
+    document.getElementById("estado").textContent = "Finalizado";
+
+    document.getElementById("telemetria").value = registro;
+}
+</script>
 
 </body>
-
 </html>
